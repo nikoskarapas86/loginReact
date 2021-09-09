@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
 
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import './App.css';
+import {  Spinner, Table,Button } from 'react-bootstrap';
+import TableTodos from './tableTodos';
+
+
+const URL = "https://jsonplaceholder.typicode.com/todos";
 function App() {
+
+  const [todos, setTodos] = useState([])
+//first http req with fetch api
+  // function getTODOS() {
+  //   return fetch(URL)
+  // }
+
+  // useEffect(() => { getTODOS().then(res => res.json()).then(res => setTodos(res)) })
+
+//second way with async await
+// useEffect(()=>{
+//   async function getTds(){
+//     let result =await fetch(URL);
+//     result =  await result.json();
+//     setTodos(result);
+//   }
+//   getTds();
+// })
+
+//third way with axios
+
+useEffect(()=>{axios.get(URL).then(res => setTimeout(()=>{setTodos(res.data) },4000)   )})
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+     {todos.length>0?<TableTodos todos ={todos}/>:<Spinner animation="border" size="lg"/>} 
     </div>
   );
 }
