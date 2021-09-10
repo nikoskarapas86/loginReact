@@ -3,8 +3,10 @@ import {  Table,Button } from 'react-bootstrap';
 
 export default function TableTodos(props){
  const [todos,setTodos] = useState([]);
-
- useEffect(()=>{setTodos(props.todos)});
+//  .history.location.state?.data
+ useEffect(()=>{
+   console.log(props)
+  setTodos(props.history.location.state.data)});
 return(
 <Table striped bordered hover>
         <thead>
