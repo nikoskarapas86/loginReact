@@ -5,12 +5,22 @@ const URL = "https://jsonplaceholder.typicode.com/todos";
 export default function Header() {
     const history = useHistory();
     const [todos, setTodos] = useState([]);
-    //   history.push('/todos')
-    // useEffect(()=>{axios.get(URL).then(res => setTimeout(()=>{setTodos(res.data) },4000)   )})
+
+
+    useEffect(() => {
+        if (todos.length > 0) history.push('/todos', { data: todos })
+    }, [todos])
+
+    function getTodos() {
+        axios.get(URL).then(res => {
+            setTodos(res.data)
+
+        })
+    }
+
     return (
         <nav>
-            <button onClick={() => axios.get(URL).then(res =>setTodos(res.data))
-            .then(() => history.push('/todos', { data: todos }))}>todos</button>
+            <button onClick={getTodos}>todos</button>
 
         </nav>
     )
